@@ -1,3 +1,4 @@
+#aca poner tu propia direccion a la carpeta donde tenga tu dataset
 setwd("C:/Users/edenk/OneDrive/Pasantía Cáncer de Próstata/GSE229904")
 
 # import datos expresion genetica
