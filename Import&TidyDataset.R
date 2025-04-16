@@ -1,0 +1,30 @@
+# Set working directory to the folder where your dataset is located
+# Replace "your/dataset/folder/path" with your actual path or use setwd() interactively
+# setwd("your/dataset/folder/path")
+
+# Import gene expression data (TPM normalized counts)
+genes <- read.delim("GSE229904_norm_counts_TPM_GRCh38.p13_NCBI.tsv.gz")
+
+
+# Import phenotypic/clinical metadata
+# The first column is set as row names
+feno <- read.csv("GSE229904_Annotations.csv", row.names = 1)
+
+
+# Remove columns that start with the word "character"
+library(tidyverse)
+feno <- feno %>%
+  dplyr::select(!starts_with("character"))
+
+# Clean column names: remove the ".ch1" suffix at the end of column names
+colnames(feno) <- gsub("\\.ch1$", "", colnames(feno))
+
+# Convert relevant columns to factors
+# You can customize this list depending on your dataset
+cols_to_factor <- c("gleason.primary", "gleason.secondary", "gleason.sum", "risk.group",  
+                    "source_name", "description", "library_selection", "library_strategy",  
+                    "biochemical.recurrence", "cm", "isup", "lapc", "pn", "pt",  
+                    "residual_tumor", "tmprss2.erg")
+
+# Apply factor conversion
+feno[cols_to_factor] <- lapply(feno[cols_to_factor], factor)
