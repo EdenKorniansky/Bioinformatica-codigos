@@ -28,3 +28,28 @@ cols_to_factor <- c("gleason.primary", "gleason.secondary", "gleason.sum", "risk
 
 # Apply factor conversion
 feno[cols_to_factor] <- lapply(feno[cols_to_factor], factor)
+
+
+# -----------------------------
+# Check data types and redundancy
+# -----------------------------
+
+# Check if certain columns are numeric (should return a numeric vector preview)
+feno$age
+feno$gleason.primary
+feno$gleason.secondary
+feno$gleason.sum
+feno$isup
+feno$ln.percent
+feno$postop.psa
+feno$preop.psa
+
+# Check for possible redundancy or invariant columns
+# These tables allow you to see if the columns contain repeated or identical values
+table(feno$description)
+table(feno$library_selection)
+table(feno$library_strategy)
+table(feno$cm)
+table(feno$lapc)
+table(feno$residual_tumor)
+table(feno$risk.group)
